@@ -1,28 +1,37 @@
-function setup
-  mkdir -p /tmp/foo/bar/eggs/spam
-  cd /tmp/foo/bar/eggs/spam
+function does_it_works -a folder -a param -a expected -a retcode
+  mock pwd 0 "echo '$folder'"
+  mock cd 0 "echo \$args"
+  set -l out (upto $param)
+  if test "$out" = "$expected" -a $retcode -eq $status
+    return 0
+  end
+  return 1
 end
 
 test "$TESTNAME up just one level"
-    (mock cd 0 "echo \$args"; upto eggs) = "/tmp/foo/bar/eggs"
+    (does_it_works /root/spam/eggs spam /root/spam 0) $status -eq 0
 end
 
 test "$TESTNAME up two levels"
-    (mock cd 0 "echo \$args"; upto bar) = "/tmp/foo/bar"
+    (does_it_works /root/spam/eggs root /root 0) $status -eq 0
 end
 
 test "$TESTNAME up three levels"
-    (mock cd 0 "echo \$args"; upto foo) = "/tmp/foo"
+    (does_it_works /root/one/two/three/four one /root/one 0) $status -eq 0
 end
 
 test "$TESTNAME up to the top"
-    (mock cd 0 "echo \$args"; upto tmp) = "/tmp"
+    (does_it_works /root/one/two/three/four root /root 0) $status -eq 0
 end
 
 test "$TESTNAME folder not found"
-    (mock cd 0 "echo \$args"; upto bacon) $status -eq 1
+    (does_it_works /root/one/two/three/four meh '' 1) $status -eq 0
 end
 
-function teardown
-  rm -rf /tmp/foo
+test "$TESTNAME folders with weird chars"
+    (does_it_works '/root/boh/Ñç&(abc)/bacon' boh /root/boh 0) $status -eq 0
+end
+
+test "$TESTNAME folders with spaces"
+    (does_it_works '/root/boh/a spaced folder/bacon' boh /root/boh 0) $status -eq 0
 end
