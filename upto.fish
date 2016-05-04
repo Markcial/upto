@@ -1,11 +1,13 @@
-function upto
-    set -l dir (pwd)
-    set -l pieces (echo $dir | tr "/" "\n")
-    if contains $argv $pieces
-       set -l p (contains --index $argv $pieces)
-       set -l dest (echo $pieces[1..$p] | tr " " "/")
-       cd $dest
-       return
+function upto -d "Go up to a certain directory"
+    set -l pieces (printf "%s\n" $PWD | tr "/" "\n")
+    
+    if contains -- $argv $pieces
+        if set -l p (contains -- --index $argv $pieces)
+            set -l dest (printf "%s\n" $pieces[1..$p] | tr " " "/")
+            cd "$dest"
+        
+            return
+        end
     end
 
     return 1
