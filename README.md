@@ -15,15 +15,33 @@ fisher upto
 
 ## Usage
 
+Inside */home/username/Projects/project_a/src/Core*
+
 ```fish
-upto AnyParentFolder
+$ upto Projects
+$ pwd
+/home/username/Projects
 ```
 
-Within `/home/username/Projects/project_a/src/Core` using the command `upto Projects` would get you inside the folder `/home/username/Projects`
+It works on directories with non ASCII characters if the charset used is UTF-8. 
 
-It works on folders with non ascii characters if the charset used is UTF-8. If you call the command `upto weiß` inside the folder `/home/weiß/projekten/src/Core` would get you inside the folder `/home/weiß`.
+Inside */home/weiß/projekten/src/Core*
 
-Can be used on folders with spaces. `/home/User/My Documents/xls/2016/essays` using the command `upto "My Documents"` would get you inside the `/home/User/My Documents` folder.
+```fish
+$ upto weiß
+$ pwd
+/home/weiß
+```
+
+You can use it inside directories with spaces too. 
+
+Inside */home/User/My Documents/xls/2016/essays*
+
+```fish
+$ upto "My Documents"
+$ pwd
+/home/User/My Documents
+```
 
 [travis-link]: https://travis-ci.org/fisherman/upto
 [travis-badge]: https://img.shields.io/travis/fisherman/upto.svg
