@@ -3,7 +3,7 @@ function upto -a where -d "Go up to a certain directory"
 
     if contains -- $where $pieces
         set -l p (contains --index -- $where $pieces)
-        set -l dest (echo $pieces[1..$p] | tr " " "/")
+        set -l dest (printf "%s\n" $pieces[1..$p] | tr "\n" "/")
         cd "$dest"
 
         return
