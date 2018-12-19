@@ -10,7 +10,7 @@ Gets you to a parent folder, heavily inspired by the plugin [upto](https://githu
 With [fisherman]
 
 ```
-fisher upto
+fisher markcial/upto
 ```
 
 ## Usage
