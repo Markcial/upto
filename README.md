@@ -7,7 +7,7 @@ Gets you to a parent folder, heavily inspired by the plugin [upto](https://githu
 With [fisherman]
 
 ```
-fisher add markcial/upto
+fisher install markcial/upto
 ```
 
 ## Usage
